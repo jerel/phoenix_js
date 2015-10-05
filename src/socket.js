@@ -1,5 +1,6 @@
 import { VSN, SOCKET_STATES, TRANSPORTS } from './constants';
 import { WebSocket, LongPoll } from './transports';
+import Channel from './channel';
 import Timer from './utils/timer';
 import Ajax from './utils/ajax';
 

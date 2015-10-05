@@ -1,5 +1,6 @@
 import { CHANNEL_STATES, CHANNEL_EVENTS } from './constants'
 import Push from './push'
+import Timer from './utils/timer'
 
 
 export default class Channel {

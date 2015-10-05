@@ -1,5 +1,5 @@
 import { SOCKET_STATES, TRANSPORTS } from './constants'
-import Ajax from './utils'
+import Ajax from './utils/ajax'
 
 
 export class LongPoll {
