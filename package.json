@@ -12,7 +12,7 @@
     "babel-brunch": "^5.1.1",
     "brunch": "^1.8.5",
     "javascript-brunch": ">= 1.0 < 1.8",
-    "saucie": "^1.1.0",
+    "saucie": "jerel/saucie#master",
     "testem": "^0.9.6"
   }
 }

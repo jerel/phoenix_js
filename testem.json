@@ -96,6 +96,8 @@
     "SL_chrome_private_current": {
       "exe": "node_modules/.bin/saucie",
       "args": [
+        "--vmVersion",
+        "dev-varnish",
         "-b",
         "chrome"
       ],
