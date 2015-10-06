@@ -1,0 +1,123 @@
+{
+  "framework": "qunit",
+  "on_start": {
+    "command": "node_modules/.bin/brunch build"
+  },
+  "src_files": [
+    "lib/phoenix.js",
+    "lib/tests.js",
+    "lib/start-tests.js"
+  ],
+  "parallel": 1,
+  "launch_in_ci": [
+    "SL_safari_private_current",
+    "SL_safari_private_5_1",
+    "SL_internet_explorer_private_current",
+    "SL_internet_explorer_private_10",
+    "SL_internet_explorer_private_9",
+    "SL_internet_explorer_private_8",
+    "SL_firefox_private_current",
+    "SL_firefox_private_24",
+    "SL_chrome_private_current",
+    "SL_chrome_private_26"
+  ],
+  "launch_in_dev": [
+    "Chrome"
+  ],
+  "launchers": {
+    "SL_safari_private_current": {
+      "exe": "node_modules/.bin/saucie",
+      "args": [
+        "-b",
+        "safari",
+        "-v",
+        "8.1"
+      ],
+      "protocol": "tap"
+    },
+    "SL_safari_private_5_1": {
+      "exe": "node_modules/.bin/saucie",
+      "args": [
+        "-b",
+        "safari",
+        "-v",
+        "5.1"
+      ],
+      "protocol": "tap"
+    },
+    "SL_internet_explorer_private_current": {
+      "exe": "node_modules/.bin/saucie",
+      "args": [
+        "-b",
+        "internet explorer"
+      ],
+      "protocol": "tap"
+    },
+    "SL_internet_explorer_private_10": {
+      "exe": "node_modules/.bin/saucie",
+      "args": [
+        "-b",
+        "internet explorer",
+        "-v",
+        "10"
+      ],
+      "protocol": "tap"
+    },
+    "SL_internet_explorer_private_9": {
+      "exe": "node_modules/.bin/saucie",
+      "args": [
+        "-b",
+        "internet explorer",
+        "-v",
+        "9"
+      ],
+      "protocol": "tap"
+    },
+    "SL_internet_explorer_private_8": {
+      "exe": "node_modules/.bin/saucie",
+      "args": [
+        "-b",
+        "internet explorer",
+        "-v",
+        "8"
+      ],
+      "protocol": "tap"
+    },
+    "SL_firefox_private_current": {
+      "exe": "node_modules/.bin/saucie",
+      "args": [
+        "-b",
+        "firefox"
+      ],
+      "protocol": "tap"
+    },
+    "SL_firefox_private_24": {
+      "exe": "node_modules/.bin/saucie",
+      "args": [
+        "-b",
+        "firefox",
+        "-v",
+        "24"
+      ],
+      "protocol": "tap"
+    },
+    "SL_chrome_private_current": {
+      "exe": "node_modules/.bin/saucie",
+      "args": [
+        "-b",
+        "chrome"
+      ],
+      "protocol": "tap"
+    },
+    "SL_chrome_private_26": {
+      "exe": "node_modules/.bin/saucie",
+      "args": [
+        "-b",
+        "chrome",
+        "-v",
+        "26"
+      ],
+      "protocol": "tap"
+    }
+  }
+}

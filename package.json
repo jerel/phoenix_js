@@ -2,9 +2,17 @@
   "name": "phoenix-js",
   "version": "0.0.0",
   "description": "JavaScript for the Phoenix Framework",
+  "prepublish": "node_modules/.bin/brunch build",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "node_modules/.bin/testem ci --port 8080"
   },
   "author": "",
-  "license": "MIT"
+  "license": "MIT",
+  "devDependencies": {
+    "babel-brunch": "^5.1.1",
+    "brunch": "^1.8.5",
+    "javascript-brunch": ">= 1.0 < 1.8",
+    "saucie": "^1.1.0",
+    "testem": "^0.9.6"
+  }
 }
