@@ -11,6 +11,8 @@
   ],
   "parallel": 1,
   "launch_in_ci": [
+    "SL_safari_private_current",
+    "SL_safari_private_5_1",
     "SL_internet_explorer_private_current",
     "SL_internet_explorer_private_10",
     "SL_internet_explorer_private_9",
