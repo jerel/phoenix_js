@@ -34,13 +34,14 @@ $ vim src/
 
 ### Hacking on this code inside a Phoenix installation:
 
-Do to [a bug in Brunch](https://github.com/brunch/brunch/issues/1023)
+Due to [a bug in Brunch](https://github.com/brunch/brunch/issues/1023)
 that prevents it from accessing modules stored inside `node_modules` you must
-currently copy the source out of the `node_modules` folder before running `brunch build`:
+copy the source out of the `node_modules` folder before running `brunch build`:
 
 ```
 npm install --save https://github.com/jerel/phoenix_js.git
-cp -R node_modules/phoenix-js phoenix-js
+mkdir phoenix-js
+cp -R node_modules/phoenix-js/src phoenix-js/src
 ```
 
 Add `"phoenix-js/src",` to `paths.watch` in brunch-config.js so Phoenix's

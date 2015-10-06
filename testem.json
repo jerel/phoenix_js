@@ -11,7 +11,16 @@
   ],
   "parallel": 1,
   "launch_in_ci": [
-    "SL_chrome_private_current"
+    "SL_safari_private_current",
+    "SL_safari_private_5_1",
+    "SL_internet_explorer_private_current",
+    "SL_internet_explorer_private_10",
+    "SL_internet_explorer_private_9",
+    "SL_internet_explorer_private_8",
+    "SL_firefox_private_current",
+    "SL_firefox_private_24",
+    "SL_chrome_private_current",
+    "SL_chrome_private_26"
   ],
   "launch_in_dev": [
     "Chrome"
@@ -20,6 +29,8 @@
     "SL_safari_private_current": {
       "exe": "node_modules/.bin/saucie",
       "args": [
+        "--vmVersion",
+        "dev-varnish",
         "-b",
         "safari",
         "-v",
@@ -30,6 +41,8 @@
     "SL_safari_private_5_1": {
       "exe": "node_modules/.bin/saucie",
       "args": [
+        "--vmVersion",
+        "dev-varnish",
         "-b",
         "safari",
         "-v",
@@ -40,6 +53,8 @@
     "SL_internet_explorer_private_current": {
       "exe": "node_modules/.bin/saucie",
       "args": [
+        "--vmVersion",
+        "dev-varnish",
         "-b",
         "internet explorer"
       ],
@@ -48,6 +63,8 @@
     "SL_internet_explorer_private_10": {
       "exe": "node_modules/.bin/saucie",
       "args": [
+        "--vmVersion",
+        "dev-varnish",
         "-b",
         "internet explorer",
         "-v",
@@ -58,6 +75,8 @@
     "SL_internet_explorer_private_9": {
       "exe": "node_modules/.bin/saucie",
       "args": [
+        "--vmVersion",
+        "dev-varnish",
         "-b",
         "internet explorer",
         "-v",
@@ -68,6 +87,8 @@
     "SL_internet_explorer_private_8": {
       "exe": "node_modules/.bin/saucie",
       "args": [
+        "--vmVersion",
+        "dev-varnish",
         "-b",
         "internet explorer",
         "-v",
@@ -78,6 +99,8 @@
     "SL_firefox_private_current": {
       "exe": "node_modules/.bin/saucie",
       "args": [
+        "--vmVersion",
+        "dev-varnish",
         "-b",
         "firefox"
       ],
@@ -86,6 +109,8 @@
     "SL_firefox_private_24": {
       "exe": "node_modules/.bin/saucie",
       "args": [
+        "--vmVersion",
+        "dev-varnish",
         "-b",
         "firefox",
         "-v",
@@ -106,6 +131,8 @@
     "SL_chrome_private_26": {
       "exe": "node_modules/.bin/saucie",
       "args": [
+        "--vmVersion",
+        "dev-varnish",
         "-b",
         "chrome",
         "-v",
