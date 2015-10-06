@@ -11,16 +11,7 @@
   ],
   "parallel": 1,
   "launch_in_ci": [
-    "SL_safari_private_current",
-    "SL_safari_private_5_1",
-    "SL_internet_explorer_private_current",
-    "SL_internet_explorer_private_10",
-    "SL_internet_explorer_private_9",
-    "SL_internet_explorer_private_8",
-    "SL_firefox_private_current",
-    "SL_firefox_private_24",
-    "SL_chrome_private_current",
-    "SL_chrome_private_26"
+    "SL_chrome_private_current"
   ],
   "launch_in_dev": [
     "Chrome"

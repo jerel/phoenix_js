@@ -1,4 +1,4 @@
-import { VSN, SOCKET_STATES, TRANSPORTS } from './constants';
+import { VSN, SOCKET_STATES, TRANSPORTS, CHANNEL_EVENTS } from './constants';
 import { WebSocket, LongPoll } from './transports';
 import Channel from './channel';
 import Timer from './utils/timer';

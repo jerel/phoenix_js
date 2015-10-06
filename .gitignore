@@ -1,3 +1,4 @@
 node_modules
+server/_build
 lib/phoenix*
 lib/tests*
