@@ -1,5 +1,7 @@
 
-# JavaScript for the Phoenix Framework
+# Phoenix Framework JS [![Build Status](https://travis-ci.org/jerel/phoenix_js.svg?branch=master)](https://travis-ci.org/jerel/phoenix_js)
+
+[![Sauce Test Status](https://saucelabs.com/browser-matrix/aNTaTe.svg)](https://saucelabs.com/u/aNTaTe)
 
 This is a work-in-progress that aims to enable better testing and distribution
 of the client side portion of Phoenix channels.
