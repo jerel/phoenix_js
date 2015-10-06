@@ -4,6 +4,7 @@
     "command": "node_modules/.bin/brunch build"
   },
   "src_files": [
+    "lib/browser-polyfill.js",
     "lib/phoenix.js",
     "lib/tests.js",
     "lib/start-tests.js"
