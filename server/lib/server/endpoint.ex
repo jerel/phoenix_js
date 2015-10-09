@@ -14,8 +14,6 @@ defmodule Server.Endpoint do
   # Code reloading can be explicitly enabled under the
   # :code_reloader configuration of your endpoint.
   if code_reloading? do
-    socket "/phoenix/live_reload/socket", Phoenix.LiveReloader.Socket
-    plug Phoenix.LiveReloader
     plug Phoenix.CodeReloader
   end
 
@@ -33,7 +31,7 @@ defmodule Server.Endpoint do
   plug Plug.Session,
     store: :cookie,
     key: "_server_key",
-    signing_salt: "Zpq7huiM"
+    signing_salt: "YOkxvzSH"
 
   plug Server.Router
 end

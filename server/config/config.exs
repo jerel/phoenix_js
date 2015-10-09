@@ -9,8 +9,8 @@ use Mix.Config
 config :server, Server.Endpoint,
   url: [host: "localhost"],
   root: Path.dirname(__DIR__),
-  secret_key_base: "NGoY9ujSUkIIcfpw4vGP+00VROOASzqUCbULgp7Gb3Hg5IYGYcUUMViLfB1MHcN+",
-  render_errors: [accepts: ~w(html json)],
+  secret_key_base: "6M6aeJdTf1tUilFVaMbbstZCC3wjruuODhUSh53+ny4i3j+KIplpdy34rW/S9CA6",
+  render_errors: [accepts: ~w(json)],
   pubsub: [name: Server.PubSub,
            adapter: Phoenix.PubSub.PG2]
 
