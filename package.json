@@ -1,6 +1,6 @@
 {
-  "name": "phoenix-js",
-  "version": "0.0.0",
+  "name": "phoenix_js",
+  "version": "0.0.1",
   "description": "JavaScript for the Phoenix Framework",
   "prepublish": "node_modules/.bin/brunch build",
   "scripts": {
