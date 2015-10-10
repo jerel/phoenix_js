@@ -1,24 +1,37 @@
 import Socket from 'src/socket'
-import {LongPoll} from 'src/transports'
+import {WebSocket, LongPoll} from 'src/transports'
 import {pause, resume} from 'tests/utils'
 
-QUnit.test('can connect', function(assert){
-  assert.expect(1)
+[{name: 'WebSocket', klass: WebSocket}, {name: 'LongPoll', klass: LongPoll}].forEach(item => {
 
-  let socket = new Socket("ws://localhost:4000/socket", {transport: LongPoll})
-  socket.connect()
+  const {name, klass} = item
 
-  let channel = socket.channel("rooms:lobby", {})
+  QUnit.test(`${name} can connect`, function(assert){
+    assert.expect(2)
 
-  // pause QUnit so that we can wait for an asynchronous response
-  pause(assert)
+    let socket = new Socket("ws://localhost:4000/socket", {transport: klass})
+    socket.connect()
 
-  channel
-    .join()
-    .receive("ok", resp => {
-      assert.ok(true, "A join response was received")
-      // a response was received, continue with tests
-      resume(assert)
-    })
-});
+    let channel = socket.channel("rooms:lobby", {})
+
+    // pause QUnit so that we can wait for an asynchronous response
+    pause(assert)
+
+    channel
+      .join()
+      .receive("ok", resp => {
+        assert.ok(true, "A join response was received")
+
+        channel
+          .push("ping", {lang: "Elixir"})
+          .receive("ok", resp => {
+            assert.ok(true, "Message echoed")
+            resume(assert)
+          })
+
+      })
+
+  });
+
+})
 
