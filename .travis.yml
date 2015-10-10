@@ -15,4 +15,7 @@ before_script:
   - npm install
 script:
   - npm test
+addons:
+  hosts:
+    - phoenix-server.dev
 

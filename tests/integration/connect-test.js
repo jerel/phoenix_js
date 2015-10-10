@@ -9,7 +9,7 @@ import {pause, resume} from 'tests/utils'
   QUnit.test(`${name} can connect`, function(assert){
     assert.expect(2)
 
-    let socket = new Socket("ws://localhost:4000/socket", {transport: klass})
+    let socket = new Socket("ws://phoenix-server.dev:4000/socket", {transport: klass})
     socket.connect()
 
     let channel = socket.channel("rooms:lobby", {})

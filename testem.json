@@ -11,24 +11,26 @@
   ],
   "parallel": 1,
   "launch_in_ci": [
-    "SL_safari_private_current",
-    "SL_safari_private_5_1",
-    "SL_internet_explorer_private_current",
-    "SL_internet_explorer_private_10",
-    "SL_internet_explorer_private_9",
-    "SL_internet_explorer_private_8",
-    "SL_firefox_private_current",
-    "SL_firefox_private_24",
-    "SL_chrome_private_current",
-    "SL_chrome_private_26"
+    "SL_safari_public_current",
+    "SL_safari_public_6_0",
+    "SL_internet_explorer_public_current",
+    "SL_internet_explorer_public_10",
+    "SL_internet_explorer_public_9",
+    "SL_internet_explorer_public_8",
+    "SL_firefox_public_current",
+    "SL_firefox_public_24",
+    "SL_chrome_public_current",
+    "SL_chrome_public_26"
   ],
   "launch_in_dev": [
     "Chrome"
   ],
   "launchers": {
-    "SL_safari_private_current": {
+    "SL_safari_public_current": {
       "exe": "node_modules/.bin/saucie",
       "args": [
+        "--tunnelDomains",
+        "phoenix-server.dev",
         "--vmVersion",
         "dev-varnish",
         "-b",
@@ -38,21 +40,27 @@
       ],
       "protocol": "tap"
     },
-    "SL_safari_private_5_1": {
+    "SL_safari_public_6_0": {
       "exe": "node_modules/.bin/saucie",
       "args": [
+        "--tunnelDomains",
+        "phoenix-server.dev",
         "--vmVersion",
         "dev-varnish",
+        "--platformSL",
+        "OS X 10.8",
         "-b",
         "safari",
         "-v",
-        "5.1"
+        "6.0"
       ],
       "protocol": "tap"
     },
-    "SL_internet_explorer_private_current": {
+    "SL_internet_explorer_public_current": {
       "exe": "node_modules/.bin/saucie",
       "args": [
+        "--tunnelDomains",
+        "phoenix-server.dev",
         "--vmVersion",
         "dev-varnish",
         "-b",
@@ -60,9 +68,11 @@
       ],
       "protocol": "tap"
     },
-    "SL_internet_explorer_private_10": {
+    "SL_internet_explorer_public_10": {
       "exe": "node_modules/.bin/saucie",
       "args": [
+        "--tunnelDomains",
+        "phoenix-server.dev",
         "--vmVersion",
         "dev-varnish",
         "-b",
@@ -72,9 +82,11 @@
       ],
       "protocol": "tap"
     },
-    "SL_internet_explorer_private_9": {
+    "SL_internet_explorer_public_9": {
       "exe": "node_modules/.bin/saucie",
       "args": [
+        "--tunnelDomains",
+        "phoenix-server.dev",
         "--vmVersion",
         "dev-varnish",
         "-b",
@@ -84,9 +96,11 @@
       ],
       "protocol": "tap"
     },
-    "SL_internet_explorer_private_8": {
+    "SL_internet_explorer_public_8": {
       "exe": "node_modules/.bin/saucie",
       "args": [
+        "--tunnelDomains",
+        "phoenix-server.dev",
         "--vmVersion",
         "dev-varnish",
         "-b",
@@ -96,9 +110,11 @@
       ],
       "protocol": "tap"
     },
-    "SL_firefox_private_current": {
+    "SL_firefox_public_current": {
       "exe": "node_modules/.bin/saucie",
       "args": [
+        "--tunnelDomains",
+        "phoenix-server.dev",
         "--vmVersion",
         "dev-varnish",
         "-b",
@@ -106,9 +122,11 @@
       ],
       "protocol": "tap"
     },
-    "SL_firefox_private_24": {
+    "SL_firefox_public_24": {
       "exe": "node_modules/.bin/saucie",
       "args": [
+        "--tunnelDomains",
+        "phoenix-server.dev",
         "--vmVersion",
         "dev-varnish",
         "-b",
@@ -118,9 +136,11 @@
       ],
       "protocol": "tap"
     },
-    "SL_chrome_private_current": {
+    "SL_chrome_public_current": {
       "exe": "node_modules/.bin/saucie",
       "args": [
+        "--tunnelDomains",
+        "phoenix-server.dev",
         "--vmVersion",
         "dev-varnish",
         "-b",
@@ -128,9 +148,11 @@
       ],
       "protocol": "tap"
     },
-    "SL_chrome_private_26": {
+    "SL_chrome_public_26": {
       "exe": "node_modules/.bin/saucie",
       "args": [
+        "--tunnelDomains",
+        "phoenix-server.dev",
         "--vmVersion",
         "dev-varnish",
         "-b",

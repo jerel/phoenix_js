@@ -4,7 +4,7 @@
   "description": "JavaScript for the Phoenix Framework",
   "prepublish": "node_modules/.bin/brunch build",
   "scripts": {
-    "test": "node_modules/.bin/testem ci --port 8080"
+    "test": "node_modules/.bin/testem ci --host phoenix-server.dev --port 8080"
   },
   "author": "",
   "license": "MIT",
