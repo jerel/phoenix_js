@@ -3,7 +3,8 @@
   "version": "0.0.2",
   "description": "JavaScript for the Phoenix Framework",
   "scripts": {
-    "test": "node_modules/.bin/testem ci --host phoenix-server.dev --port 8080",
+    "test": "node_modules/.bin/brunch watch & node_modules/.bin/testem",
+    "test-ci": "node_modules/.bin/testem ci --host phoenix-server.dev --port 8080",
     "build": "mkdir -p dist && npm run build-amd && npm run build-umd && npm run build-global",
     "build-amd": "node_modules/.bin/rollup src/phoenix.js | node_modules/.bin/babel -m amd --module-id phoenix_js -o dist/phoenix.amd.js",
     "build-umd": "node_modules/.bin/rollup src/phoenix.js | node_modules/.bin/babel -m umd --module-id phoenix_js -o dist/phoenix.umd.js",

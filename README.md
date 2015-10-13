@@ -5,16 +5,23 @@
 
 The client component of [Phoenix Framework channels](http://www.phoenixframework.org/docs/channels).
 
+
 ### Install
 
 ``` bash
 npm install --save phoenix_js
 ```
 
-And then in your ES6 code you can import the channel feature like this:
+`phoenix_js` is also available on Bower:
+
+``` bash
+bower install --save phoenix_js
+```
+
+And then, you can import the channel feature like this:
 
 ``` javascript
-import Socket from "phoenix_js/src/socket"
+import { Socket } from "phoenix_js"
 
 let socket = new Socket("/socket", {params: {token: 'your-auth-token'}})
 socket.connect()
@@ -23,10 +30,39 @@ socket.connect()
 Or to force a specific transport:
 
 ``` javascript
-import { LongPoll } from "phoenix_js/src/transports"
+import { LongPoll, WebSocket } from "phoenix_js"
 let socket = new Socket("/socket", { transport: LongPoll })
 socket.connect()
 ```
+
+
+### Usage inside a Phoenix HTML installation:
+
+```
+npm install --save phoenix_js
+```
+
+Add `"node_modules/phoenix_js/dist/phoenix.umd.js",` to `paths.watched` in brunch-config.js so Phoenix's
+Brunch instance knows about the files. Now you can `import { Socket } from 'phoenix_js'`
+in Phoenix's `socket.js` module..
+
+
+### Usage with other build systems
+
+This package provides distribution files for CommonJS, AMD, and Globals. All are
+found in the `dist` folder.
+
+CommonJS, used in Node or via require.js is named `phoenix.umd.js` as it is shipped
+as a universal module that should also support AMD.
+
+AMD, is named `phoenix.amd.js` and is provided for strict AMD systems such as Ember CLI
+that can't consume a universal module.
+
+Globals, named `phoenix.js` is really a UMD module but exports the `window.Phoenix` object.
+Use this format if you just want to add a script tag to your page.
+
+ES6 is available in the `src` directory and the `jsnext:main` points to `src/phoenix.js`.
+
 
 ### Running tests
 
@@ -35,30 +71,6 @@ $ npm install
 $ npm test
 ```
 
-Additionally, to watch and transpile during development:
-
-``` bash
-$ npm install -g brunch
-$ brunch watch
-$ vim src/
-```
-
-
-### Usage inside a Phoenix HTML installation:
-
-Due to [a bug in Brunch](https://github.com/brunch/brunch/issues/1023)
-that prevents it from accessing modules stored inside `node_modules` you must
-copy the source out of the `node_modules` folder before running `brunch build`:
-
-```
-npm install --save phoenix_js
-mkdir phoenix_js
-cp -R node_modules/phoenix_js/src phoenix_js/src
-```
-
-Add `"phoenix_js/src",` to `paths.watch` in brunch-config.js so Phoenix's
-Brunch instance knows about the files. Now you can `import Socket from 'phoenix/src/socket'`
-in Phoenix's `socket.js` module. They will now be watched and transpiled.
 
 ## License
 
