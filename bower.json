@@ -1,0 +1,27 @@
+{
+  "name": "phoenix_js",
+  "version": "0.0.2",
+  "homepage": "https://github.com/jerel/phoenix_js",
+  "description": "JavaScript client for the Phoenix Framework",
+  "main": "dist/phoenix.js",
+  "moduleType": [
+    "amd",
+    "es6",
+    "globals",
+    "node"
+  ],
+  "keywords": [
+    "Phoenix",
+    "Framework",
+    "channels",
+    "websockets"
+  ],
+  "license": "MIT",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ]
+}
