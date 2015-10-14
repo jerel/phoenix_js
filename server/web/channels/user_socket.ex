@@ -2,7 +2,7 @@ defmodule Server.UserSocket do
   use Phoenix.Socket
 
   ## Channels
-  channel "rooms:lobby", Server.RoomChannel
+  channel "rooms:*", Server.RoomChannel
 
   ## Transports
   transport :websocket, Phoenix.Transports.WebSocket

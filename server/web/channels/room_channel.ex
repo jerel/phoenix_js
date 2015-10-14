@@ -3,10 +3,19 @@ defmodule Server.RoomChannel do
 
   def join("rooms:lobby", payload, socket) do
     if authorized?(payload) do
-      {:ok, socket}
+      {:ok, %{payload: %{nick: "abc"}}, socket}
     else
       {:error, %{reason: "unauthorized"}}
     end
+  end
+
+  def join("rooms:" <> id, payload, socket) do
+    {:ok, %{payload: %{room: id}}, socket}
+  end
+
+  def handle_in("new_msg", payload, socket) do
+    push socket, "new_msg", payload
+    {:reply, {:ok, payload}, socket}
   end
 
   # Channels can be used in a request/response fashion

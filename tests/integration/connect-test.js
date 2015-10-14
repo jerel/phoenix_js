@@ -1,32 +1,58 @@
 import Socket from 'src/socket'
 import {WebSocket, LongPoll} from 'src/transports'
-import {pause, resume} from 'tests/utils'
 
 [{name: 'WebSocket', klass: WebSocket}, {name: 'LongPoll', klass: LongPoll}].forEach(item => {
 
   const {name, klass} = item
 
   QUnit.test(`${name} can connect`, function(assert){
-    assert.expect(2)
+    assert.expect(6)
 
     let socket = new Socket("ws://phoenix-server.dev:4000/socket", {transport: klass})
     socket.connect()
 
-    let channel = socket.channel("rooms:lobby", {})
+    let lobby = socket.channel("rooms:lobby")
 
     // pause QUnit so that we can wait for an asynchronous response
-    pause(assert)
+    let done = assert.async()
 
-    channel
+    lobby.on("new_msg", msg => {
+      assert.deepEqual({body: "Elixir"}, msg, "Message events are sent")
+    })
+
+    lobby
       .join()
-      .receive("ok", resp => {
-        assert.ok(true, "A join response was received")
+      .receive("ok", ({payload}) => {
+        assert.deepEqual({nick: "abc"}, payload, "A join payload was received")
 
-        channel
-          .push("ping", {lang: "Elixir"})
-          .receive("ok", resp => {
-            assert.ok(true, "Message echoed")
-            resume(assert)
+        lobby
+          .push("new_msg", {body: "Elixir"})
+          .receive("ok", msg => {
+            assert.deepEqual({body: "Elixir"}, msg, "Message receive hook was called")
+            done()
+          })
+
+      })
+
+
+    let bob = socket.channel("rooms:bob")
+
+    let done2 = assert.async()
+
+    bob.on("new_msg", msg => {
+      assert.deepEqual({body: "Hey!"}, msg, "Message events are sent to the second channel")
+    })
+
+    bob
+      .join()
+      .receive("ok", ({payload}) => {
+        assert.deepEqual({room: "bob"}, payload, "A join payload was received from second channel")
+
+        bob
+          .push("new_msg", {body: "Hey!"})
+          .receive("ok", msg => {
+            assert.deepEqual({body: "Hey!"}, msg, "Message receive hook was called on the second channel")
+            done2()
           })
 
       })
