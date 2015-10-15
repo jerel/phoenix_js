@@ -10,6 +10,7 @@
   "launch_in_ci": [
     "SL_safari_public_current",
     "SL_safari_public_6_0",
+    "SL_edge_public_current",
     "SL_internet_explorer_public_current",
     "SL_internet_explorer_public_10",
     "SL_internet_explorer_public_9",
@@ -50,6 +51,18 @@
         "safari",
         "-v",
         "6.0"
+      ],
+      "protocol": "tap"
+    },
+    "SL_edge_public_current": {
+      "exe": "node_modules/.bin/saucie",
+      "args": [
+        "--tunnelDomains",
+        "phoenix-server.dev",
+        "--vmVersion",
+        "dev-varnish",
+        "-b",
+        "microsoftedge"
       ],
       "protocol": "tap"
     },
