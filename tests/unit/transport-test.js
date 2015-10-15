@@ -14,7 +14,7 @@ class LongPollFakeConnect extends LongPoll {
 }
 
 
-QUnit.test('LongPoll instantiation', assert => {
+QUnit.test('unit:transport LongPoll instantiation', assert => {
 
   assert.equal(typeof LongPoll, 'function', 'the transport module should have a named export');
 
@@ -22,7 +22,7 @@ QUnit.test('LongPoll instantiation', assert => {
   assert.equal("http://localhost", lp.pollEndpoint, "Endpoint is normalized to http")
 
   var lp = new LongPollFake("wss://localhost")
-  assert.equal("https://localhost", lp.pollEndpoint, "Endpoint is normalized to http")
+  assert.equal("https://localhost", lp.pollEndpoint, "Endpoint is normalized to https")
 
   assert.equal(SOCKET_STATES.connecting, lp.readyState, "Starts in the ready state")
 
@@ -34,7 +34,7 @@ QUnit.test('LongPoll instantiation', assert => {
 });
 
 
-QUnit.test('LongPoll internals', assert => {
+QUnit.test('unit:transport LongPoll internals', assert => {
   assert.expect(6)
   var lp = new LongPollFake("ws://localhost")
   lp.token = "abcdefg"

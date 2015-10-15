@@ -5,7 +5,7 @@ import {WebSocket, LongPoll} from 'src/transports'
 
   const {name, klass} = item
 
-  QUnit.test(`${name} can connect`, function(assert){
+  QUnit.test(`integration:connect ${name} can connect and send messages`, assert => {
     assert.expect(6)
 
     let socket = new Socket("ws://phoenix-server.dev:4000/socket", {transport: klass})
