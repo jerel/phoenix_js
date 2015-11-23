@@ -11,6 +11,10 @@
     "build-global": "node_modules/.bin/rollup src/phoenix.js | node_modules/.bin/babel -m umd --module-id Phoenix -o dist/phoenix.js",
     "prepublish": "npm run build"
   },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/jerel/phoenix_js"
+  },
   "main": "dist/phoenix.umd.js",
   "jsnext:main": "src/phoenix.js",
   "author": "",
