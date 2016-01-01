@@ -1,6 +1,6 @@
 {
   "name": "phoenix_js",
-  "version": "0.0.2",
+  "version": "0.0.3",
   "homepage": "https://github.com/jerel/phoenix_js",
   "description": "JavaScript client for the Phoenix Framework",
   "main": "dist/phoenix.js",

@@ -1,6 +1,6 @@
 {
   "name": "phoenix_js",
-  "version": "0.0.2",
+  "version": "0.0.3",
   "description": "JavaScript for the Phoenix Framework",
   "scripts": {
     "test": "node_modules/.bin/brunch watch & node_modules/.bin/testem",
