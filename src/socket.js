@@ -238,9 +238,9 @@ export default class Socket {
   }
 
   channel(topic, chanParams = {}){
-    let channel = new Channel(topic, chanParams, this)
-    this.channels.push(channel)
-    return channel
+    let channelInstance = new Channel(topic, chanParams, this)
+    this.channels.push(channelInstance)
+    return channelInstance
   }
 
   push(data){
