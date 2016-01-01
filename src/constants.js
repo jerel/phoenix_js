@@ -3,6 +3,8 @@ export const VSN = "1.0.0"
 
 export const SOCKET_STATES = {connecting: 0, open: 1, closing: 2, closed: 3}
 
+export const DEFAULT_TIMEOUT = 10000
+
 export const CHANNEL_STATES = {
   closed: "closed",
   errored: "errored",

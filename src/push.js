@@ -7,54 +7,46 @@ export default class Push {
   // channel - The Channel
   // event - The event, for example `"phx_join"`
   // payload - The payload, for example `{user_id: 123}`
+  // timeout - The push timeout in milliseconds
   //
-  constructor(channel, event, payload){
+  constructor(channel, event, payload, timeout){
     this.channel      = channel
     this.event        = event
     this.payload      = payload || {}
     this.receivedResp = null
-    this.afterHook    = null
+    this.timeout      = timeout
+    this.timeoutTimer = null
     this.recHooks     = []
     this.sent         = false
   }
 
-  send(){
-    const ref         = this.channel.socket.makeRef()
-    this.refEvent     = this.channel.replyEventName(ref)
+  resend(timeout){
+    this.timeout = timeout
+    this.cancelRefEvent()
+    this.ref          = null
+    this.refEvent     = null
     this.receivedResp = null
     this.sent         = false
+    this.send()
+  }
 
-    this.channel.on(this.refEvent, payload => {
-      this.receivedResp = payload
-      this.matchReceive(payload)
-      this.cancelRefEvent()
-      this.cancelAfter()
-    })
-
-    this.startAfter()
+  send(){ if(this.hasReceived("timeout")){ return }
+    this.startTimeout()
     this.sent = true
     this.channel.socket.push({
       topic: this.channel.topic,
       event: this.event,
       payload: this.payload,
-      ref: ref
+      ref: this.ref
     })
   }
 
   receive(status, callback){
-    if(this.receivedResp && this.receivedResp.status === status){
+    if(this.hasReceived(status)){
       callback(this.receivedResp.response)
     }
 
     this.recHooks.push({status, callback})
-    return this
-  }
-
-  after(ms, callback){
-    if(this.afterHook){ throw(`only a single after hook can be applied to a push`) }
-    let timer = null
-    if(this.sent){ timer = setTimeout(callback, ms) }
-    this.afterHook = {ms: ms, callback: callback, timer: timer}
     return this
   }
 
@@ -66,19 +58,37 @@ export default class Push {
                  .forEach( h => h.callback(response) )
   }
 
-  cancelRefEvent(){ this.channel.off(this.refEvent) }
-
-  cancelAfter(){ if(!this.afterHook){ return }
-    clearTimeout(this.afterHook.timer)
-    this.afterHook.timer = null
+  cancelRefEvent(){ if(!this.refEvent){ return }
+    this.channel.off(this.refEvent)
   }
 
-  startAfter(){ if(!this.afterHook){ return }
-    let callback = () => {
+  cancelTimeout() {
+    clearTimeout(this.timeoutTimer)
+    this.timeoutTimer = null
+  }
+
+  startTimeout(){ if(this.timeoutTimer){ return }
+    this.ref      = this.channel.socket.makeRef()
+    this.refEvent = this.channel.replyEventName(this.ref)
+
+    this.channel.on(this.refEvent, payload => {
       this.cancelRefEvent()
-      this.afterHook.callback()
-    }
-    this.afterHook.timer = setTimeout(callback, this.afterHook.ms)
+      this.cancelTimeout()
+      this.receivedResp = payload
+      this.matchReceive(payload)
+    })
+
+    this.timeoutTimer = setTimeout(() => {
+      this.trigger("timeout", {})
+    }, this.timeout)
+  }
+
+  hasReceived(status){
+    return this.receivedResp && this.receivedResp.status === status
+  }
+
+  trigger(status, response){
+    this.channel.trigger(this.refEvent, {status, response})
   }
 }
 

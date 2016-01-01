@@ -10,8 +10,9 @@ export default class Channel {
     this.params      = params || {}
     this.socket      = socket
     this.bindings    = []
+    this.timeout     = this.socket.timeout
     this.joinedOnce  = false
-    this.joinPush    = new Push(this, CHANNEL_EVENTS.join, this.params)
+    this.joinPush    = new Push(this, CHANNEL_EVENTS.join, this.params, this.timeout)
     this.pushBuffer  = []
     this.rejoinTimer  = new Timer(
       () => this.rejoinUntilConnected(),
@@ -20,6 +21,8 @@ export default class Channel {
     this.joinPush.receive("ok", () => {
       this.state = CHANNEL_STATES.joined
       this.rejoinTimer.reset()
+      this.pushBuffer.forEach( pushEvent => pushEvent.send() )
+      this.pushBuffer = []
     })
     this.onClose( () => {
       this.socket.log("channel", `close ${this.topic}`)
@@ -28,6 +31,13 @@ export default class Channel {
     })
     this.onError( reason => {
       this.socket.log("channel", `error ${this.topic}`, reason)
+      this.state = CHANNEL_STATES.errored
+      this.rejoinTimer.setTimeout()
+    })
+    this.joinPush.receive("timeout", () => {
+      if(this.state !== CHANNEL_STATES.joining){ return }
+
+      this.socket.log("channel", `timeout ${this.topic}`, reason)
       this.state = CHANNEL_STATES.errored
       this.rejoinTimer.setTimeout()
     })
@@ -43,13 +53,13 @@ export default class Channel {
     }
   }
 
-  join(){
+  join(timeout = this.timeout){
     if(this.joinedOnce){
       throw(`tried to join multiple times. 'join' can only be called a single time per channel instance`)
     } else {
       this.joinedOnce = true
     }
-    this.sendJoin()
+    this.rejoin(timeout)
     return this.joinPush
   }
 
@@ -65,14 +75,15 @@ export default class Channel {
 
   canPush(){ return this.socket.isConnected() && this.state === CHANNEL_STATES.joined }
 
-  push(event, payload){
+  push(event, payload, timeout = this.timeout){
     if(!this.joinedOnce){
       throw(`tried to push '${event}' to '${this.topic}' before joining. Use channel.join() before pushing events`)
     }
-    let pushEvent = new Push(this, event, payload)
+    let pushEvent = new Push(this, event, payload, timeout)
     if(this.canPush()){
       pushEvent.send()
     } else {
+      pushEvent.startTimeout()
       this.pushBuffer.push(pushEvent)
     }
 
@@ -91,11 +102,18 @@ export default class Channel {
   //
   //     channel.leave().receive("ok", () => alert("left!") )
   //
-  leave(){
-    return this.push(CHANNEL_EVENTS.leave).receive("ok", () => {
+  leave(timeout = this.timeout){
+    let onClose = () => {
       this.socket.log("channel", `leave ${this.topic}`)
       this.trigger(CHANNEL_EVENTS.close, "leave")
-    })
+    }
+    let leavePush = new Push(this, CHANNEL_EVENTS.leave, {}, timeout)
+    leavePush.receive("ok", () => onClose() )
+             .receive("timeout", () => onClose() )
+    leavePush.send()
+    if(!this.canPush()){ leavePush.trigger("ok", {}) }
+
+    return leavePush
   }
 
   // Overridable message hook
@@ -107,15 +125,13 @@ export default class Channel {
 
   isMember(topic){ return this.topic === topic }
 
-  sendJoin(){
+  sendJoin(timeout){
     this.state = CHANNEL_STATES.joining
-    this.joinPush.send()
+    this.joinPush.resend(timeout)
   }
 
-  rejoin(){
-    this.sendJoin()
-    this.pushBuffer.forEach( pushEvent => pushEvent.send() )
-    this.pushBuffer = []
+  rejoin(timeout = this.timeout) {
+    this.sendJoin(timeout)
   }
 
   trigger(triggerEvent, payload, ref){
